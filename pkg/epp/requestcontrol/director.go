@@ -62,6 +62,9 @@ func (d *Director) HandleRequest(ctx context.Context, reqCtx *handlers.RequestCo
 	if !ok {
 		return reqCtx, errutil.Error{Code: errutil.BadRequest, Msg: "model not found in request"}
 	}
+	
+        reqCtx.modelServerStreaming, ok = requestBodyMap["stream"].(bool)
+        
 	prompt, err := requtil.ExtractPromptFromRequestBody(requestBodyMap)
 	if err != nil {
 		return reqCtx, err
